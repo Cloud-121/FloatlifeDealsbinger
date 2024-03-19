@@ -1,7 +1,7 @@
-# The Float Life Binger
+# Onewheel deal webhook python bot
 
-## Ever wanted to get binged when the float life has a deal of the day or a new thrift shop here is the thing
+## This is a bot that check the float lifes deal of the day and jeffs thrift shop for deals with support for most shopify shops some pre-added.
 
-### Put in a webhook for discord and done.
+### Very early in devlment with being the DOTD and JTS working fine and shopify shop intergration working kind of.
 
-#### I made this in less then a hour don't judge the code :3 
+Want to help, Make a PR today.
