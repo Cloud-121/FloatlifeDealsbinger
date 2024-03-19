@@ -4,7 +4,7 @@ import time
 import json
 
 global present
-# Set to True to send message for deal of the day, Set to False to ignore previous
+# Set to True to send message for deal of the day, Set to False to ignore previous.
 present = True
 
 def send_webhook_message(Namer, product_name, product_image, link):
