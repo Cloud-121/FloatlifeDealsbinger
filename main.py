@@ -16,8 +16,8 @@ present = False
 scrap = ['https://thefloatlife.com', 'https://pickleworks.ca', 'https://craftandride.com', 'https://fungineers.us', 'https://nickleworks.com', 'https://1wheelparts.com', 'https://floatershack.com']
 
 # Function to send Discord webhook message
-def send_webhook_message(Namer, product_name, product_image, link):
-    webhook_url = 'WEBBHOOK'
+def send_webhook_message(Namer, product_name, product_image, link, ):
+    webhook_url = 'https://discord.com/api/webhooks/1219439917038305290/IhJreQphZKuYmQw_InEQkkgmx84ZBdhncNfwwc41ge0ifUQtpfiFqsU8H0-sd4YgsZUn'
 
     data = {
     "username" : "Vesc Deals"
@@ -108,10 +108,14 @@ def extract_pricing_name_color_and_extra(filename):
 
             beforeprice = row['compare_at_price']
             
-            # Extracting the product ID
+            # Extracting the ID
             product_id = row['id']
+
+            # Extracting the product ID
+
+            real_product_id = row['product_id']
             
-            pricing_name_color_and_extra.append((price, quicktitle, title, option1, option2, option3, company, beforeprice, product_id))
+            pricing_name_color_and_extra.append((price, quicktitle, title, option1, option2, option3, company, beforeprice, product_id, real_product_id))
     return pricing_name_color_and_extra
 
 
@@ -187,10 +191,11 @@ def monitor_deals():
                             # Comparing prices and printing differences based on product IDs
                             # Comparing prices and printing differences based on product IDs
                             item_sent = []
+                            hold_pid = ""
                             for old_item in old_list:
-                                old_price, old_quicktitle, old_title, old_option1, old_option2, old_option3, old_company, old_beforeprice, old_product_id = old_item
+                                old_price, old_quicktitle, old_title, old_option1, old_option2, old_option3, old_company, old_beforeprice, old_product_id, old_real_product_id = old_item
                                 for new_item in new_list:
-                                    new_price, new_quicktitle, new_title, new_option1, new_option2, new_option3, new_company, new_beforeprice, new_product_id = new_item
+                                    new_price, new_quicktitle, new_title, new_option1, new_option2, new_option3, new_company, new_beforeprice, new_product_id, new_real_product_id = new_item
                                     if old_product_id == new_product_id and old_price != new_price:
 
                                         if (old_price > new_price):
@@ -230,9 +235,16 @@ def monitor_deals():
                                                     print("Error:", e)
                                                     embed_photo_url = ''
                                                     sendurl = scrapeurl
-
-                                                send_webhook_message(f"New Deal From {new_company}!", messegee, embed_photo_url, sendurl)
-                                                item_sent.append(new_product_id)
+                                                #Make sure items sent before aren't send
+                                                if new_real_product_id not in item_sent:
+                                                    hold_pid = new_quicktitle
+                                                    send_webhook_message(f"New Deal From {new_company}!", messegee, embed_photo_url, sendurl)
+                                                    item_sent.append(new_real_product_id)
+                                                else:
+                                                    if hold_pid != "":
+                                                        send_webhook_message(f"", f"{hold_pid}", '', sendurl)
+                                                        hold_pid = ""
+                                                    send_webhook_message(f"", f"{new_quicktitle}", '', sendurl)
 
 
                                             break
