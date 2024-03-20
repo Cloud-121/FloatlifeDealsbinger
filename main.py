@@ -17,7 +17,7 @@ scrap = ['https://thefloatlife.com', 'https://pickleworks.ca', 'https://craftand
 
 # Function to send Discord webhook message
 def send_webhook_message(Namer, product_name, product_image, link, ):
-    webhook_url = 'https://discord.com/api/webhooks/1219439917038305290/IhJreQphZKuYmQw_InEQkkgmx84ZBdhncNfwwc41ge0ifUQtpfiFqsU8H0-sd4YgsZUn'
+    webhook_url = '###################'
 
     data = {
     "username" : "Vesc Deals"
